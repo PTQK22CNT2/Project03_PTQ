@@ -1,15 +1,19 @@
 package config;
 
 import java.sql.Connection;
-import config.DBConnection;
+import java.sql.SQLException;
 
 public class TestConnection {
     public static void main(String[] args) {
-        Connection conn = DBConnection.getConnection();
-        if (conn != null) {
-            System.out.println("Kết nối thành công!");
-        } else {
-            System.out.println("Kết nối thất bại!");
+        try (Connection conn = DBConnection.getConnection()) {
+            if (conn != null) {
+                System.out.println("Kết nối đến cơ sở dữ liệu thành công!");
+            } else {
+                System.out.println("Kết nối thất bại!");
+            }
+        } catch (SQLException e) {
+            System.out.println("Lỗi kết nối: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
