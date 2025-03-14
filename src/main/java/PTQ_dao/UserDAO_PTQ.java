@@ -1,9 +1,10 @@
-package dao_PTQ;
+package PTQ_dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import model_PTQ.User_PTQ;
+
+import PTQ_model.User_PTQ;
 import config.DBConnection;
 
 public class UserDAO_PTQ {

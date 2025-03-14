@@ -1,4 +1,4 @@
-package model_PTQ;
+package PTQ_model;
 
 import java.util.Date;
 

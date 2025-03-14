@@ -1,9 +1,9 @@
-package dao_PTQ;
+package PTQ_dao;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import model_PTQ.PtqCongVan;
+import PTQ_model.PtqCongVan;
 import config.DBConnection;
 
 public class PtqCongVanDAO {
@@ -16,12 +16,15 @@ public class PtqCongVanDAO {
             ps.setString(1, cv.getPtqSoHieu());
             ps.setString(2, cv.getPtqTieuDe());
             ps.setString(3, cv.getPtqNoiDung());
-            ps.setDate(4, new java.sql.Date(cv.getPtqNgayBanHanh().getTime()));
+            ps.setDate(4, cv.getPtqNgayBanHanh() != null ? new java.sql.Date(cv.getPtqNgayBanHanh().getTime()) : null);
             ps.setString(5, cv.getPtqLoaiCongVan());
             ps.setString(6, cv.getPtqTrangThai());
             ps.setString(7, cv.getPtqTaiLieuDinhKem());
-            return ps.executeUpdate() > 0;
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
+            System.err.println("Lỗi khi thêm công văn: " + e.getMessage());
             e.printStackTrace();
         }
         return false;
@@ -35,13 +38,16 @@ public class PtqCongVanDAO {
             ps.setString(1, cv.getPtqSoHieu());
             ps.setString(2, cv.getPtqTieuDe());
             ps.setString(3, cv.getPtqNoiDung());
-            ps.setDate(4, new java.sql.Date(cv.getPtqNgayBanHanh().getTime()));
+            ps.setDate(4, cv.getPtqNgayBanHanh() != null ? new java.sql.Date(cv.getPtqNgayBanHanh().getTime()) : null);
             ps.setString(5, cv.getPtqLoaiCongVan());
             ps.setString(6, cv.getPtqTrangThai());
             ps.setString(7, cv.getPtqTaiLieuDinhKem());
             ps.setInt(8, cv.getId());
-            return ps.executeUpdate() > 0;
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
+            System.err.println("Lỗi khi cập nhật công văn: " + e.getMessage());
             e.printStackTrace();
         }
         return false;
@@ -53,8 +59,10 @@ public class PtqCongVanDAO {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
-            return ps.executeUpdate() > 0;
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
+            System.err.println("Lỗi khi xóa công văn: " + e.getMessage());
             e.printStackTrace();
         }
         return false;
@@ -81,13 +89,43 @@ public class PtqCongVanDAO {
                 list.add(cv);
             }
         } catch (SQLException e) {
+            System.err.println("Lỗi khi lấy danh sách công văn: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
     }
 
-    // Tìm công văn theo ID
-    public PtqCongVan getCongVanById(int id) {
+ // Tìm công văn theo tiêu đề
+    public List<PtqCongVan> searchCongVanByTitle(String title) {
+        String sql = "SELECT * FROM ptqcong_van WHERE PtqTieuDe LIKE ?";
+        List<PtqCongVan> danhSachCongVan = new ArrayList<>();
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "%" + title + "%"); // Tìm kiếm gần đúng
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    danhSachCongVan.add(new PtqCongVan(
+                            rs.getInt("id"),
+                            rs.getString("PtqSoHieu"),
+                            rs.getString("PtqTieuDe"),
+                            rs.getString("PtqNoiDung"),
+                            rs.getDate("PtqNgayBanHanh"),
+                            rs.getString("PtqLoaiCongVan"),
+                            rs.getString("PtqTrangThai"),
+                            rs.getString("PtqTaiLieuDinhKem")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Lỗi khi tìm công văn theo tiêu đề: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return danhSachCongVan;
+    }
+ // Lấy công văn theo ID
+    public PtqCongVan getCongVanByID(int id) {
         String sql = "SELECT * FROM ptqcong_van WHERE id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -107,8 +145,11 @@ public class PtqCongVanDAO {
                 }
             }
         } catch (SQLException e) {
+            System.err.println("Lỗi khi lấy công văn theo ID: " + e.getMessage());
             e.printStackTrace();
         }
         return null;
     }
+
+
 }

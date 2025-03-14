@@ -1,62 +1,53 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page pageEncoding="UTF-8" %>
-<%@ page import="javax.servlet.http.HttpSession" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="true" %>
 <%
-    HttpSession sessionUser = request.getSession();
-    String userEmail = (String) sessionUser.getAttribute("userEmail");
-    String userRole = (String) sessionUser.getAttribute("userRole");
+    String userRole = (String) session.getAttribute("userRole");
+    if (userRole != null) {
+        if ("Admin".equals(userRole)) {
+            response.sendRedirect("admin-dashboard.jsp");
+        } else {
+            response.sendRedirect("user-dashboard.jsp");
+        }
+    }
 %>
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang Chủ - Quản Lý Công Văn</title>
-    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Import Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <!-- Import file home.css -->
+    <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
-    <!-- Thanh Điều Hướng -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Quản Lý Công Văn</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="home.jsp">Trang Chủ</a></li>
 
-                    <% if (userEmail != null) { %>
-                        <li class="nav-item"><a class="nav-link" href="#">Danh Sách Công Văn</a></li>
-                        <li class="nav-item"><a class="nav-link text-danger fw-bold" href="logout.jsp">Đăng Xuất</a></li>
-                    <% } else { %>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold" href="login.jsp" style="color: #FFD700 !important;">Đăng Nhập</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold" href="register.jsp" style="color: #FFD700 !important;">Đăng Ký</a>
-                        </li>
-                    <% } %>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<!-- Thanh điều hướng góc trên bên phải -->
+<div class="top-right">
+    <a href="login.jsp" class="btn btn-primary me-2">Đăng Nhập</a>
+    <a href="register.jsp" class="btn btn-success">Đăng Ký</a>
+</div>
 
-    <!-- Nội Dung Chính -->
-    <div class="container mt-4 text-center">
-        <h2>Chào mừng đến với hệ thống Quản Lý Công Văn</h2>
-        <p>Hệ thống giúp bạn quản lý công văn đến và đi một cách hiệu quả.</p>
+<!-- Nội dung chính -->
+<div class="container content">
+    <h2>Chào mừng bạn đến với hệ thống Quản Lý Công Văn</h2>
+    <p>
+        Hệ thống Quản Lý Công Văn giúp bạn theo dõi, lưu trữ và quản lý công văn đến và đi một cách hiệu quả.  
+        Với các tính năng thông minh, bạn có thể dễ dàng tìm kiếm, phân loại và xử lý công văn nhanh chóng.  
+        Hệ thống hỗ trợ đăng nhập nhiều cấp độ quyền hạn, giúp đảm bảo bảo mật và phân quyền hợp lý.  
+        Dù bạn là quản trị viên hay nhân viên, hệ thống sẽ giúp bạn làm việc một cách hiệu quả hơn.  
+    </p>
+</div>
 
-        <% if (userEmail != null) { %>
-            <div class="alert alert-success">
-                <h4>Xin chào, <%= userEmail %>!</h4>
-                <p>Vai trò của bạn: <strong><%= userRole %></strong></p>
-            </div>
-        <% } %>
-    </div>
+<!-- Thông tin liên lạc -->
+<div class="footer">
+    <p><strong>Liên hệ:</strong></p>
+    <p>Số điện thoại: <a href="tel:+84901234567">+84 901 234 567</a></p>
+    <p>Email: <a href="mailto:support@quanlycongvan.com">support@quanlycongvan.com</a></p>
+</div>
 
-    <!-- Footer -->
-    <footer class="bg-light text-center p-3 mt-4">
-        <p>&copy; 2025 - PTQ_Project03 | Quản lý công văn hiệu quả</p>
-    </footer>
 </body>
 </html>

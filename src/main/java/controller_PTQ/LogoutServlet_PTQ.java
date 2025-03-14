@@ -14,8 +14,11 @@ public class LogoutServlet_PTQ extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Hủy session
         HttpSession session = request.getSession();
-        session.invalidate(); // Hủy session
-        response.sendRedirect("login.jsp");
+        session.invalidate();
+
+        // Chuyển hướng về trang chủ
+        response.sendRedirect("home.jsp");
     }
 }

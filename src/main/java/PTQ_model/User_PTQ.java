@@ -1,10 +1,10 @@
-package model_PTQ;
+package PTQ_model;
 
 public class User_PTQ {
     private String ptqEmail;
     private String ptqMatKhau;
     private String ptqVaiTro;
-
+    private String ptqHoTen;
     // Constructor mặc định
     public User_PTQ() {}
 
@@ -39,4 +39,12 @@ public class User_PTQ {
     public void setPtqVaiTro(String ptqVaiTro) {
         this.ptqVaiTro = ptqVaiTro;
     }
+
+	public String getPtqHoTen() {
+		
+		return ptqHoTen;
+	}
+	public void setPtqHoTen() {
+		this.ptqHoTen = ptqHoTen;
+	}
 }

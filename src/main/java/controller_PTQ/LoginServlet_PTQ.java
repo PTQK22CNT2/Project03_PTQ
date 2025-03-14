@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao_PTQ.UserDAO_PTQ;
-import model_PTQ.User_PTQ;
+import PTQ_dao.UserDAO_PTQ;
+import PTQ_model.User_PTQ;
 
 @WebServlet("/LoginServlet_PTQ")
 public class LoginServlet_PTQ extends HttpServlet {
@@ -27,8 +27,15 @@ public class LoginServlet_PTQ extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("userEmail", user.getPtqEmail());
             session.setAttribute("userRole", user.getPtqVaiTro());
+            session.setAttribute("userName", user.getPtqHoTen()); // Thêm họ tên vào session
 
-            response.sendRedirect("home.jsp"); // Chuyển hướng đến trang chủ
+
+            // Chuyển hướng theo vai trò
+            if ("Admin".equals(user.getPtqVaiTro())) {
+                response.sendRedirect("admin-dashboard.jsp");
+            } else {
+                response.sendRedirect("user-dashboard.jsp");
+            }
         } else {
             request.setAttribute("errorMessage", "Sai email hoặc mật khẩu!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
