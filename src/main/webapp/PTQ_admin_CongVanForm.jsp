@@ -7,6 +7,7 @@
     <!-- Sử dụng Bootstrap 4.5.2 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+<meta charset="UTF-8">
 <body>
     <div class="container mt-4">
         <%
@@ -49,13 +50,38 @@
                 <input type="date" class="form-control" name="ngayBanHanh" value="<%= ngayBanHanhStr %>" required>
             </div>
             <div class="form-group">
-                <label>Loại Công Văn</label>
-                <input type="text" class="form-control" name="loaiCongVan" value="<%= isEdit ? congVan.getPtqLoaiCongVan() : "" %>" required>
-            </div>
-            <div class="form-group">
-                <label>Trạng Thái</label>
-                <input type="text" class="form-control" name="trangThai" value="<%= isEdit ? congVan.getPtqTrangThai() : "" %>" required>
-            </div>
+			    <label>Loại Công Văn</label>
+			    <select class="form-control" name="loaiCongVan" required>
+			        <option value="Đến"
+			            <%= (isEdit && "Đến".equals(congVan.getPtqLoaiCongVan())) ? "selected" : "" %>>
+			            Đến
+			        </option>
+			        <option value="Đi"
+			            <%= (isEdit && "Đi".equals(congVan.getPtqLoaiCongVan())) ? "selected" : "" %>>
+			            Đi
+			        </option>
+			    </select>
+			</div>
+
+           <div class="form-group">
+			    <label>Trạng Thái</label>
+			    <select class="form-control" name="trangThai" required>
+			        <option value="Đang xử lý"
+			            <%= (isEdit && "Đang xử lý".equals(congVan.getPtqTrangThai())) ? "selected" : "" %>>
+			            Đang xử lý
+			        </option>
+			        <option value="Hoàn thành"
+			            <%= (isEdit && "Hoàn thành".equals(congVan.getPtqTrangThai())) ? "selected" : "" %>>
+			            Hoàn thành
+			        </option>
+			        <option value="Từ chối"
+			            <%= (isEdit && "Từ chối".equals(congVan.getPtqTrangThai())) ? "selected" : "" %>>
+			            Từ chối
+			        </option>
+			    </select>
+			</div>
+
+
             <div class="form-group">
                 <label>Tài Liệu Đính Kèm</label>
                 <input type="text" class="form-control" name="taiLieu" value="<%= isEdit ? congVan.getPtqTaiLieuDinhKem() : "" %>" required>

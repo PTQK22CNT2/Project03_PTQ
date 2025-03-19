@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 26, 2025 lúc 03:42 AM
+-- Thời gian đã tạo: Th3 18, 2025 lúc 03:32 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.0.30
 
@@ -43,9 +43,10 @@ CREATE TABLE `ptqcong_van` (
 --
 
 INSERT INTO `ptqcong_van` (`id`, `PtqSoHieu`, `PtqTieuDe`, `PtqNoiDung`, `PtqNgayBanHanh`, `PtqLoaiCongVan`, `PtqTrangThai`, `PtqTaiLieuDinhKem`) VALUES
-(1, 'CV001', 'Thông báo họp', 'Mời họp ngày 10/03', '2024-03-01', 'Đến', 'Đang xử lý', NULL),
-(2, 'CV002', 'Hướng dẫn nghiệp vụ', 'Hướng dẫn về quy trình', '2024-03-02', 'Đi', 'Hoàn thành', 'file1.pdf'),
-(3, 'CV003', 'Thông báo nghỉ lễ', 'Nghỉ lễ từ 30/04 đến 01/05', '2024-03-05', 'Đến', 'Đang xử lý', 'file2.pdf');
+(1, 'CV-001', 'Công văn di dời 100 củ', 'công văn mới', '2024-03-01', 'Đến', 'Hoàn thành', 'null'),
+(2, 'CV-002', 'Thông báo lịch họp quý I', 'Lịch họp công ty quý I năm 2024.', '2024-03-05', 'Đến', 'Hoàn thành', 'hop_quy1.pdf'),
+(3, 'CV-003', 'Kế hoạch đào tạo nội bộ', 'Chi tiết về khóa đào tạo kỹ năng mềm.', '2024-03-10', 'Đi', 'Đang xử lý', 'dao_tao.pdf'),
+(4, 'CV-004', 'Đề xuất mua sắm thiết bị', 'Danh sách thiết bị cần mua cho phòng IT.', '2024-03-15', 'Đi', 'Từ chối', NULL);
 
 -- --------------------------------------------------------
 
@@ -65,9 +66,11 @@ CREATE TABLE `ptqdon_vi` (
 --
 
 INSERT INTO `ptqdon_vi` (`id`, `PtqTenDonVi`, `PtqDiaChi`, `PtqSoDienThoai`) VALUES
-(1, 'Sở Giáo Dục', '123 Đường A, TP HCM', '0123456789'),
-(2, 'Sở Y Tế', '456 Đường B, TP HCM', '0987654321'),
-(3, 'Sở Xây Dựng', '789 Đường C, TP HCM', '0345678912');
+(1, 'Sở Nội Vụ Hà Nội', 'Số 12, Đường Trần Phú, Hà Nội', '024-12345678'),
+(2, 'UBND Quận 1', 'Số 5, Đường Nguyễn Huệ, TP.HCM', '028-98765432'),
+(3, 'Bộ Giáo Dục và Đào Tạo', 'Số 35, Đường Đại Cồ Việt, Hà Nội', '024-11223344'),
+(4, 'Sở Tài Chính Đà Nẵng', 'Số 9, Đường Lê Duẩn, Đà Nẵng', NULL),
+(5, 'Trung Tâm Y Tế TP. Hải Phòng', 'Số 15, Đường Lạch Tray, Hải Phòng', '0225-44556677');
 
 -- --------------------------------------------------------
 
@@ -88,9 +91,14 @@ CREATE TABLE `ptqnguoi_dung` (
 --
 
 INSERT INTO `ptqnguoi_dung` (`id`, `PtqHoTen`, `PtqEmail`, `PtqMatKhau`, `PtqVaiTro`) VALUES
-(1, 'Nguyễn Minh Khôi', 'khoi.nguyen@example.com', 'pass123', 'Nhân viên'),
-(2, 'Trần Thanh Hương', 'huong.tran@example.com', 'pass456', 'Admin'),
-(3, 'Lê Quốc Bảo', 'bao.le@example.com', 'pass789', 'Nhân viên');
+(1, 'Nguyễn Văn An', 'an.nguyen@example.com', 'PassAn123', 'Nhân viên'),
+(2, 'Trần Thị Bích', 'bich.tran@example.com', 'BichSecure99', 'Nhân viên'),
+(3, 'Lê Văn Hùng', 'hung.le@example.com', 'HungPass789', 'Admin'),
+(4, 'Phạm Thùy Linh', 'linh.pham@example.com', 'LinhTest456', 'Nhân viên'),
+(5, 'Hoàng Minh Đức', 'duc.hoang@example.com', 'DucAdmin321', 'Admin'),
+(6, 'Tôn Ngộ Không', 'wukong@gmail.com', 'ad123', 'Nhân viên'),
+(7, 'Đường Huyền Trang', 'duongtang@gmail.com', 'sugartank123', 'Nhân viên'),
+(8, 'Trư Bát Giới', 'bachia@gmail.com', 'bachia123', 'Nhân viên');
 
 -- --------------------------------------------------------
 
@@ -102,7 +110,7 @@ CREATE TABLE `ptqquan_tri` (
   `id` int(11) NOT NULL,
   `PtqTaiKhoan` varchar(50) NOT NULL,
   `PtqMatKhau` varchar(32) NOT NULL,
-  `PtqTrangThai` bit(1) NOT NULL DEFAULT b'1'
+  `PtqTrangThai` bit(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -111,8 +119,10 @@ CREATE TABLE `ptqquan_tri` (
 
 INSERT INTO `ptqquan_tri` (`id`, `PtqTaiKhoan`, `PtqMatKhau`, `PtqTrangThai`) VALUES
 (1, 'admin1', 'password123', b'1'),
-(2, 'admin2', 'password456', b'1'),
-(3, 'admin3', 'password789', b'0');
+(2, 'admin2', 'securepass', b'1'),
+(3, 'admin3', 'adminpass', b'0'),
+(4, 'admin4', 'mypassword', b'1'),
+(5, 'admin5', 'testpass', b'0');
 
 -- --------------------------------------------------------
 
@@ -133,9 +143,11 @@ CREATE TABLE `ptqthong_bao` (
 --
 
 INSERT INTO `ptqthong_bao` (`id`, `PtqNguoiNhan`, `PtqNoiDung`, `PtqNgayGui`, `PtqTrangThai`) VALUES
-(1, 1, 'Bạn có một công văn mới cần xử lý.', '2024-03-01 12:00:00', b'0'),
-(2, 2, 'Công văn đã được duyệt thành công.', '2024-03-02 15:00:00', b'1'),
-(3, 3, 'Bạn có một thông báo mới.', '2024-03-05 09:00:00', b'0');
+(1, 1, 'Bạn có một công văn mới cần xử lý.', '2024-03-02 08:00:00', b'0'),
+(2, 2, 'Hệ thống đã cập nhật lịch họp mới.', '2024-03-06 09:30:00', b'1'),
+(3, 3, 'Kế hoạch đào tạo nội bộ đã được phê duyệt.', '2024-03-11 15:45:00', b'0'),
+(4, 4, 'Công văn về mua sắm thiết bị đã bị từ chối.', '2024-03-16 10:20:00', b'1'),
+(5, 5, 'Bạn đã nhận được hướng dẫn làm việc từ xa.', '2024-03-21 12:10:00', b'0');
 
 -- --------------------------------------------------------
 
@@ -157,9 +169,10 @@ CREATE TABLE `ptqxu_ly_cong_van` (
 --
 
 INSERT INTO `ptqxu_ly_cong_van` (`id`, `PtqCongVanID`, `PtqNguoiXuLy`, `PtqNgayXuLy`, `PtqTrangThaiMoi`, `PtqGhiChu`) VALUES
-(1, 1, 1, '2024-03-01 10:00:00', 'Đang xử lý', 'Cần xem xét thêm'),
-(2, 2, 2, '2024-03-02 14:30:00', 'Hoàn thành', 'Đã gửi đi'),
-(3, 3, 3, '2024-03-05 08:45:00', 'Đang xử lý', 'Chờ phê duyệt');
+(1, 1, 3, '2024-03-02 09:30:00', 'Đang xử lý', 'Đã tiếp nhận công văn và đang xem xét.'),
+(2, 2, 1, '2024-03-06 10:00:00', 'Hoàn thành', 'Đã thông báo lịch họp đến toàn công ty.'),
+(3, 3, 4, '2024-03-11 14:20:00', 'Đang xử lý', 'Chuẩn bị kế hoạch đào tạo nội bộ.'),
+(4, 4, 2, '2024-03-16 08:45:00', 'Từ chối', 'Ngân sách không đủ để mua thiết bị.');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -197,15 +210,15 @@ ALTER TABLE `ptqquan_tri`
 --
 ALTER TABLE `ptqthong_bao`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `PtqNguoiNhan` (`PtqNguoiNhan`);
+  ADD KEY `ptqthong_bao_ibfk_1` (`PtqNguoiNhan`);
 
 --
 -- Chỉ mục cho bảng `ptqxu_ly_cong_van`
 --
 ALTER TABLE `ptqxu_ly_cong_van`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `PtqCongVanID` (`PtqCongVanID`),
-  ADD KEY `PtqNguoiXuLy` (`PtqNguoiXuLy`);
+  ADD KEY `PtqNguoiXuLy` (`PtqNguoiXuLy`),
+  ADD KEY `ptqxu_ly_cong_van_ibfk_1` (`PtqCongVanID`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -215,37 +228,37 @@ ALTER TABLE `ptqxu_ly_cong_van`
 -- AUTO_INCREMENT cho bảng `ptqcong_van`
 --
 ALTER TABLE `ptqcong_van`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `ptqdon_vi`
 --
 ALTER TABLE `ptqdon_vi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `ptqnguoi_dung`
 --
 ALTER TABLE `ptqnguoi_dung`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `ptqquan_tri`
 --
 ALTER TABLE `ptqquan_tri`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `ptqthong_bao`
 --
 ALTER TABLE `ptqthong_bao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `ptqxu_ly_cong_van`
 --
 ALTER TABLE `ptqxu_ly_cong_van`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -255,13 +268,13 @@ ALTER TABLE `ptqxu_ly_cong_van`
 -- Các ràng buộc cho bảng `ptqthong_bao`
 --
 ALTER TABLE `ptqthong_bao`
-  ADD CONSTRAINT `ptqthong_bao_ibfk_1` FOREIGN KEY (`PtqNguoiNhan`) REFERENCES `ptqnguoi_dung` (`id`);
+  ADD CONSTRAINT `ptqthong_bao_ibfk_1` FOREIGN KEY (`PtqNguoiNhan`) REFERENCES `ptqnguoi_dung` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `ptqxu_ly_cong_van`
 --
 ALTER TABLE `ptqxu_ly_cong_van`
-  ADD CONSTRAINT `ptqxu_ly_cong_van_ibfk_1` FOREIGN KEY (`PtqCongVanID`) REFERENCES `ptqcong_van` (`id`),
+  ADD CONSTRAINT `ptqxu_ly_cong_van_ibfk_1` FOREIGN KEY (`PtqCongVanID`) REFERENCES `ptqcong_van` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `ptqxu_ly_cong_van_ibfk_2` FOREIGN KEY (`PtqNguoiXuLy`) REFERENCES `ptqnguoi_dung` (`id`);
 COMMIT;
 

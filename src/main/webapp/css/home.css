@@ -1,48 +1,59 @@
-/* home.css - Thiết lập giao diện cho trang home */
+/* home.css */
 
-/* Định dạng vị trí nút Đăng Nhập và Đăng Ký ở góc phải */
-.top-right {
+/* Reset cơ bản cho toàn bộ trang */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Phông chữ chung cho trang */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    background: url('../images/hero-bg.jpg') no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.hero-overlay {
     position: absolute;
-    top: 20px;
-    right: 30px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* Định dạng nội dung chính */
-.content {
-    margin-top: 120px;
+.hero-content {
+    position: relative;
+    z-index: 2;
     text-align: center;
+    padding: 0 15px;
 }
 
-/* Căn chỉnh tiêu đề */
-.content h2 {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 15px;
+/* Features Section */
+.container .row .col-md-4 i {
+    font-size: 3rem;
 }
 
-/* Định dạng đoạn văn */
-.content p {
-    font-size: 16px;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.6;
+/* Giới thiệu thêm */
+.container .row.align-items-center {
+    margin-top: 2rem;
 }
 
-/* Định dạng footer (thông tin liên lạc) */
-.footer {
-    background-color: #f8f9fa;
+/* Footer */
+footer {
+    background-color: #343a40;
+    color: #fff;
     padding: 20px 0;
     text-align: center;
-    margin-top: 50px;
-    font-size: 14px;
-    color: #333;
-}
-
-.footer a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.footer a:hover {
-    text-decoration: underline;
 }

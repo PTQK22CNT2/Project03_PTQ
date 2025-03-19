@@ -10,6 +10,11 @@
 </head>
 <body>
     <div class="container mt-4">
+    <!-- Nút Trở về Trang Chính -->
+		<div class="mb-3">
+		    <a href="admin-dashboard.jsp" class="btn btn-secondary">Trở về Trang Chính</a>
+		</div>
+    
         <h2 class="text-center">Danh Sách Công Văn</h2>
 
         <!-- Form tìm kiếm công văn theo ID -->

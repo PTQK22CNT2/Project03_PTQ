@@ -31,7 +31,7 @@
 
         <!-- Link Đăng ký -->
         <p class="text-center mt-3">
-            Chưa có tài khoản? <a href="dangky_dangnhap/register.jsp" style="color: blue; text-decoration: none;">Đăng ký ngay</a>
+            Chưa có tài khoản? <a href="register.jsp" style="color: blue; text-decoration: none;">Đăng ký ngay</a>
         </p>
     </div>
 
